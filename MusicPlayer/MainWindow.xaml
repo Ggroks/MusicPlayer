@@ -1,0 +1,146 @@
+﻿<Window x:Class="MusicPlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Music Player" Height="960" Width="1400"
+        WindowStartupLocation="CenterScreen"
+        >
+
+
+
+    <Grid RenderTransformOrigin="0.962,0.751">
+        <!-- Фон градиента -->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="1.5,0" EndPoint="1,5">
+                <GradientStop Color="Black" Offset="0.0"/>
+                <GradientStop Color="Red" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="210"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Левая панель с логотипом и кнопками -->
+        <StackPanel Grid.Column="0" Background="Black">
+            <Image Source="E:\шарага\MusicPlayer\MusicPlayer\MusicPlayer\assets\logo.jpg" Height="154" Width="175" Margin="10"/>
+
+            <!-- Кнопки -->
+            <Button x:Name="btnHome" Background="Transparent" Click="btnHome_Click" BorderBrush="Transparent" Height="84">
+                <Grid>
+                    <Image Source="E:\шарага\MusicPlayer\MusicPlayer\MusicPlayer\assets\Button.png" Stretch="Fill"/>
+                    <TextBlock Text="ГЛАВНАЯ СТРАНИЦА"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               FontSize="15" FontWeight="Bold" Foreground="White"
+                               FontFamily="monocraft"/>
+                </Grid>
+            </Button>
+
+            <Button x:Name="btnAddSong" Background="Transparent" Click="btnAddSong_Click" BorderBrush="Transparent" Height="84">
+                <Grid>
+                    <Image Source="E:\шарага\MusicPlayer\MusicPlayer\MusicPlayer\assets\Button.png" Stretch="Fill"/>
+                    <TextBlock Text="ДОБАВИТЬ ПЕСНЮ"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               FontSize="15" FontWeight="Bold" Foreground="White"
+                               FontFamily="monocraft"/>
+                </Grid>
+            </Button>
+
+            <Button x:Name="btnCreatePlaylist" Background="Transparent" Click="btnCreatePlaylist_Click" BorderBrush="Transparent" Height="84">
+                <Grid>
+                    <Image Source="E:\шарага\MusicPlayer\MusicPlayer\MusicPlayer\assets\Button.png" Stretch="Fill"/>
+                    <TextBlock Text="СОЗДАТЬ ПЛЕЙЛИСТ"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               FontSize="15" FontWeight="Bold" Foreground="White"
+                               FontFamily="monocraft"/>
+                </Grid>
+            </Button>
+
+            <Button x:Name="btnDeleteSong" Background="Transparent" Click="btnDeleteSong_Click" BorderBrush="Transparent" Height="84">
+                <Grid>
+                    <Image Source="E:\шарага\MusicPlayer\MusicPlayer\MusicPlayer\assets\Button.png" Stretch="Fill"/>
+                    <TextBlock Text="УДАЛИТЬ ПЕСНЮ"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               FontSize="15" FontWeight="Bold" Foreground="White"
+                               FontFamily="monocraft"/>
+                </Grid>
+            </Button>
+
+            <Rectangle Height="2" Stroke="Gray" Width="210" Fill="Gray" Margin="0,10,0,10"/>
+
+            <!-- Контейнер для плейлистов -->
+            <StackPanel x:Name="PlaylistsContainer" Orientation="Vertical" Margin="0,10,0,0">
+                <!-- Плейлисты будут добавляться программно -->
+            </StackPanel>
+
+            <!-- Кнопка выхода -->
+            <Button x:Name="btnLogout" Background="Transparent" Click="btnLogout_Click" BorderBrush="Transparent" Height="84" VerticalAlignment="Bottom">
+                <Grid>
+                    <Image Source="E:\шарага\MusicPlayer\MusicPlayer\MusicPlayer\assets\Button.png" Stretch="Fill"/>
+                    <TextBlock Text="ВЫХОД"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               FontSize="15" FontWeight="Bold" Foreground="White"
+                               FontFamily="monocraft"/>
+                </Grid>
+            </Button>
+        </StackPanel>
+
+        <!-- Основная часть с Frame и плеером -->
+        <Grid Grid.Column="1">
+            <!-- Frame для навигации -->
+            <Frame Name="MainFrame" NavigationUIVisibility="Hidden" Margin="0,4,0,100"/>
+
+            <!-- Панель управления -->
+            <DockPanel VerticalAlignment="Bottom" Background="#1b1b1b" Height="100" Margin="-210,0,0,0">
+                <!-- Левая часть: Картинка, Название и Исполнитель -->
+                <StackPanel Orientation="Horizontal" Width="380" Margin="15,0">
+                    <Image x:Name="songImage" Width="70" Height="70" Source="E:\Downloads\IMG_0804.PNG" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="10,0">
+                        <TextBlock x:Name="songTitle" FontSize="16" Foreground="White" Text="Название песни" Margin="0,0,0,5" FontFamily="Monocraft"/>
+                        <TextBlock x:Name="artistName" FontSize="14" Foreground="Gray" Text="Исполнитель" FontFamily="Monocraft"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Центр: Таймлайн -->
+                <StackPanel Width="637" Margin="0,10" Height="54">
+                    <DockPanel Height="20" Width="630" LastChildFill="True">
+                        <TextBlock x:Name="currentPositionText" Foreground="White" Text="00:00" Width="48" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Monocraft"/>
+                        <TextBlock x:Name="totalDurationText" Foreground="White" Text="00:00" Width="40" VerticalAlignment="Center" HorizontalAlignment="Right" FontFamily="Monocraft" Margin="0,0,1,0"/>
+                    </DockPanel>
+                    <Slider x:Name="timelineSlider" Minimum="0" Maximum="100" Value="0" ValueChanged="timelineSlider_ValueChanged"
+                Width="635" Height="5" Background="#3c3c3c" BorderBrush="Transparent" Margin="0"/>
+                </StackPanel>
+
+                <!-- Центр: Кнопки управления -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30,0,0,0">
+                    <!-- Кнопки управления -->
+                    <Button x:Name="btnPrevious" Content="⏮" Width="35" Height="35" Margin="5" Click="btnPrevious_Click" 
+                Background="#161616" Foreground="White" BorderBrush="#444" BorderThickness="1"/>
+                    <Button x:Name="btnPlayPause" Content="⏯" Width="40" Height="40" Margin="5" Click="btnPlayPause_Click" 
+                Background="#161616" Foreground="White" BorderBrush="#444" BorderThickness="1"/>
+                    <Button x:Name="btnNext" Content="⏭" Width="35" Height="35" Margin="5" Click="btnNext_Click" 
+                Background="#161616" Foreground="White" BorderBrush="#444" BorderThickness="1"/>
+                </StackPanel>
+
+                <!-- Кнопки Repeat и Shuffle -->
+                <StackPanel Orientation="Horizontal" Margin="10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button x:Name="btnShuffle" Width="33" Height="26" Click="btnShuffle_Click" 
+                Background="#252525" Foreground="White" BorderBrush="#555" BorderThickness="2"
+                FontWeight="Bold" Content="🔀" ToolTip="Shuffle"/>
+                    <Button x:Name="btnRepeat" Width="33" Height="26" Click="btnRepeat_Click" 
+                Background="#252525" Foreground="White" BorderBrush="#555" BorderThickness="2"
+                FontWeight="Bold" Content="🔁" ToolTip="Repeat" Margin="10,0,0,0"/>
+                </StackPanel>
+
+                <!-- Громкость -->
+                <StackPanel Orientation="Vertical" Width="76" Margin="0,0,20,0" Height="100">
+                    <Slider x:Name="volumeSlider" Orientation="Vertical" Minimum="0" Maximum="100" Value="25"
+                Width="24" Margin="10,0" ValueChanged="volumeSlider_ValueChanged" 
+                 Height="100"/>
+
+                </StackPanel>
+            </DockPanel>
+
+        </Grid>
+    </Grid>
+</Window>

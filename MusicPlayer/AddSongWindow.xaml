@@ -1,0 +1,23 @@
+﻿<Window x:Class="MusicPlayer.AddSongWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add Song" Height="300" Width="400">
+    <StackPanel Margin="10">
+        <TextBlock Text="Название песни:" />
+        <TextBox Name="TitleTextBox" />
+
+        <TextBlock Text="Группа/Исполнитель:" />
+        <TextBox Name="ArtistTextBox" />
+
+        <TextBlock Text="Жанр:" />
+        <TextBox Name="GenreTextBox" />
+
+        <TextBlock Text="Картинка песни:" />
+        <StackPanel Orientation="Horizontal">
+            <TextBox Name="ImagePathTextBox" Width="200" IsReadOnly="True" />
+            <Button Content="Загрузить..." Click="LoadImageButton_Click" />
+        </StackPanel>
+
+        <Button Content="Сохранить" Click="SaveButton_Click" Margin="0,10,0,0" HorizontalAlignment="Center" />
+    </StackPanel>
+</Window>
