@@ -1,15 +1,92 @@
 ﻿<Window x:Class="MusicPlayer.CreatePlaylistWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Создать плейлист" Height="300" Width="400">
-    <StackPanel Margin="10">
-        <TextBlock Text="Имя плейлиста:" Margin="0,0,0,5"/>
-        <TextBox x:Name="txtPlaylistName" Width="200"/>
+        Title="Создать плейлист"
+        Height="480"
+        Width="450"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="#121212"
+        FontFamily="Monocraft">
+    <StackPanel Margin="20">
+        <!-- Заголовок окна -->
+        <TextBlock Text="Создать новый плейлист" 
+                   FontSize="22" 
+                   FontWeight="Bold" 
+                   Foreground="White" 
+                   HorizontalAlignment="Center" 
+                   Margin="0,0,0,20"/>
 
-        <TextBlock Text="Изображение плейлиста:" Margin="0,10,0,5"/>
-        <Button Content="Выбрать изображение" Click="btnChooseImage_Click"/>
-        <Image x:Name="imgPlaylistPreview" Height="100" Margin="0,10"/>
+        <!-- Имя плейлиста -->
+        <TextBlock Text="Имя плейлиста:" 
+                   FontSize="16" 
+                   Foreground="#B3B3B3" 
+                   Margin="0,0,0,5"/>
+        <TextBox x:Name="txtPlaylistName" 
+                 FontSize="16" 
+                 Background="#1E1E1E" 
+                 Foreground="White" 
+                 BorderBrush="#333333" 
+                 Padding="5" 
+                 Width="350"/>
 
-        <Button Content="Создать" Click="btnCreate_Click" Margin="0,20,0,0"/>
+        <!-- Изображение плейлиста -->
+        <TextBlock Text="Изображение плейлиста:" 
+                   FontSize="16" 
+                   Foreground="#B3B3B3" 
+                   Margin="0,20,0,5"/>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,20" Height="178" >
+            <Button Content="Выбрать изображение" 
+                    Click="btnChooseImage_Click"
+                    VerticalAlignment="Top"
+                    FontSize="16"
+                    Foreground="White"
+                    Background="#333333"
+                    BorderBrush="#444444"
+                    Padding="10,5"
+                    Width="220"
+                    Height="66">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="1" 
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Image x:Name="imgPlaylistPreview" 
+                   Height="170" 
+                   Width="180" 
+                   Margin="0,0,0,0" 
+                   Stretch="UniformToFill" 
+                   
+                   />
+        </StackPanel>
+
+        <!-- Кнопка создания -->
+        <Button Content="Создать" 
+                Click="btnCreate_Click"
+                FontSize="18"
+                Foreground="White"
+                Background="#8B0000"
+                BorderBrush="#B22222"
+                Padding="10,5"
+                Width="350"
+                HorizontalAlignment="Center"
+                Margin="0,20,0,0">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="1" 
+                            CornerRadius="6">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </StackPanel>
 </Window>

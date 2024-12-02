@@ -1,48 +1,101 @@
 ﻿<Page
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="MusicPlayer.PlaylistPage"
-      Title="Playlist Page"
-      Background="#121212" av:DesignHeight="650" av:DesignWidth="645">
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:av="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="av"
+    x:Class="MusicPlayer.PlaylistPage"
+    Title="Playlist Page"
+    Background="#121212"
+    FontFamily="Monocraft">
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Заголовок и картинка плейлиста -->
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,5">
-            <Image x:Name="playlistImage" Width="250" Height="250" Margin="0,0,20,0" ClipToBounds="True" Stretch="UniformToFill"/>
-            <TextBlock x:Name="playlistTitle" FontSize="28" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,20">
+            <Image x:Name="playlistImage" 
+                   Width="250" Height="250" 
+                   Margin="0,0,20,0" 
+                   ClipToBounds="True" 
+                   Stretch="UniformToFill" 
+                   Source="pack://application:,,,/Resources/placeholder.png"/>
+            <TextBlock x:Name="playlistTitle" 
+                       FontSize="46" 
+                       FontWeight="Bold" 
+                       Foreground="White" 
+                       VerticalAlignment="Center" 
+                       Text="Название плейлиста"/>
         </StackPanel>
 
         <!-- Таблица с песнями плейлиста -->
         <DataGrid x:Name="playlistSongsDataGrid"
-                  Grid.Row="1"
-                  AutoGenerateColumns="False"
-                  CanUserAddRows="False"
-                  IsReadOnly="True"
-                  MouseDoubleClick="playlistSongsDataGrid_MouseDoubleClick"
-                  SelectionMode="Single"
-                  SelectionUnit="FullRow"
-                  Background="#1E1E1E"
-                  Foreground="White"
-                  BorderBrush="#333333"
-                  BorderThickness="1"
-                  RowBackground="#2E2E2E"
-                  AlternatingRowBackground="#252525"
-                  FontSize="14"
-                  HorizontalGridLinesBrush="#444444"
-                  VerticalGridLinesBrush="#444444"
-                  GridLinesVisibility="None"
-                  FontFamily="Monocraft"
-                  Margin="0,0,0,20">
+          Grid.Row="1"
+          AutoGenerateColumns="False"
+          CanUserAddRows="False"
+          IsReadOnly="True"
+          MouseDoubleClick="playlistSongsDataGrid_MouseDoubleClick"
+          SelectionMode="Single"
+          SelectionUnit="FullRow"
+          Background="#1E1E1E"
+          Foreground="White"
+          BorderBrush="#333333"
+          BorderThickness="0"
+          RowBackground="#2E2E2E"
+          AlternatingRowBackground="#252525"
+          FontSize="14"
+          HorizontalGridLinesBrush="#333333"
+          VerticalGridLinesBrush="#333333"
+          GridLinesVisibility="None"
+          FontFamily="Monocraft"
+          Margin="-4,0,0,20">
+            <DataGrid.Resources>
+                <!-- Стилизация заголовков -->
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#1E1E1E"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="BorderBrush" Value="#444444"/>
+                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
 
-            <!-- Заголовки колонок -->
+                <!-- Стилизация строк -->
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="BorderBrush" Value="#444444"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Style.Triggers>
+                        <!-- Подсветка строки при наведении -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#333333"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+
+                <!-- Стилизация ячеек -->
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderBrush" Value="#333333"/>
+                    <Setter Property="BorderThickness" Value="0,1,0,0"/>
+                    <!-- Убираем белую полоску -->
+                    <Style.Triggers>
+                        <!-- Подсветка ячейки при наведении -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#444444"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
+
+            <!-- Определение колонок -->
             <DataGrid.Columns>
-                <!-- Столбец для нумерации -->
                 <DataGridTextColumn Header="#" Binding="{Binding RowNumber}" Width="50">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
@@ -52,7 +105,6 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
-                <!-- Столбец для названия песни -->
                 <DataGridTextColumn Header="Название" Binding="{Binding Title}" Width="2*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
@@ -62,7 +114,6 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
-                <!-- Столбец для исполнителя -->
                 <DataGridTextColumn Header="Исполнитель" Binding="{Binding Artist}" Width="2*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
@@ -71,7 +122,6 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
 
-                <!-- Столбец для жанра -->
                 <DataGridTextColumn Header="Жанр" Binding="{Binding Genre}" Width="1.5*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
@@ -82,80 +132,40 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Кнопки -->
+
+
+
+
+        <!-- Кнопки управления -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-            <!-- Применяем Margin к каждой кнопке -->
             <Button x:Name="btnAddSongToPlaylist"
-            Content="Добавить песню"
-            Padding="12,8"
-            Foreground="White"
-            Background="#333333"
-            FontSize="16"
-            FontWeight="Bold"
-            BorderBrush="#444444"
-            BorderThickness="1"
-            Click="btnAddSongToPlaylist_Click"
-            Width="175"
-            Margin="5,0">
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="6">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
+                    FontSize ="20"
+                    Content="Добавить песню"
+                    Style="{StaticResource HoverButtonStyle}"
+                    Margin="10,0" Height="34" Width="306" RenderTransformOrigin="0.5,0.5">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
             </Button>
-
             <Button x:Name="btnDeleteSongPlaylist"
-            Content="Удалить песню"
-            Padding="12,8"
-            Foreground="White"
-            Background="#333333"
-            FontSize="16"
-            FontWeight="Bold"
-            BorderBrush="#444444"
-            BorderThickness="1"
-            Click="btnDeleteSongPlaylist_Click"
-            Width="175"
-            Margin="5,0">
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="6">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
-
+                    Content="Удалить песню"
+                    FontSize ="20"
+                    
+                    Style="{StaticResource HoverButtonStyle}"
+                    Margin="10,0" Height="34" Width="283"/>
             <Button x:Name="btnDeletePlaylist"
-            Content="Удалить плейлист"
-            Padding="12,8"
-            Foreground="White"
-            Background="#8B0000"
-            FontSize="16"
-            FontWeight="Bold"
-            BorderBrush="#B22222"
-            BorderThickness="1"
-            Click="btnDeletePlaylist_Click"
-            Width="175"
-            Margin="5,0">
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="6">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+                    Content="Удалить плейлист"
+                    Background="#8B0000"
+                    FontSize ="20"
+                    Foreground="White"
+                    BorderBrush="#B22222"
+                    Style="{StaticResource HoverButtonStyle}"
+                    Margin="10,0" Height="34" Width="349"/>
         </StackPanel>
     </Grid>
 </Page>

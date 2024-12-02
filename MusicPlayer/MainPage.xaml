@@ -8,6 +8,7 @@
     Title="Main Page"
     Background="#121212" av:DesignHeight="495" av:DesignWidth="835">
 
+    
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -48,7 +49,7 @@
                              Foreground="White" 
                              FontFamily="Monocraft"
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             Padding="10" av:ItemsSource="{av:SampleData ItemCount=5}" Width="610" Height="377" >
+                             Padding="10" av:ItemsSource="{av:SampleData ItemCount=5}" Width="610" Height="462" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Margin="0,5">
@@ -91,8 +92,11 @@
                              BorderThickness="0" 
                              FontFamily="Monocraft"
                              Foreground="White" 
-                             ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             Padding="10" av:ItemsSource="{av:SampleData ItemCount=5}"  Height="787">
+                             ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                             Padding="10" av:ItemsSource="{av:SampleData ItemCount=5}"  Height="677"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             >
+                        
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Margin="0,5">

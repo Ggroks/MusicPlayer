@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Music Player" Height="960" Width="1400"
         WindowStartupLocation="CenterScreen"
+          ResizeMode="NoResize"
         >
 
 
